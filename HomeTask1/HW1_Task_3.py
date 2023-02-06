@@ -6,6 +6,10 @@
 
 def Edit_distance(line_1, line_2):
     lenght_1, lenght_2 = len(line_1), len(line_2)
+    
+    if lenght_1 > lenght_2:
+        line_1, line_2 = line_2, line_1
+        lenght_1, lenght_2 = lenght_2, lenght_1
 
     # создаем массив для запоминания строк после преобразования
     rmmbr = [[0 for i in range(lenght_1 + 1)] for j in range(2)]
