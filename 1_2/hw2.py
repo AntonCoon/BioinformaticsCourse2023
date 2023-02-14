@@ -1,4 +1,6 @@
+from collections import defaultdict
 from typing import Dict, Tuple
+import Bio.Align
 
 
 class DPCell:
@@ -8,7 +10,7 @@ class DPCell:
         self._parent: Tuple = ()
 
     def update(self, value: int, parent: Tuple):
-        if not self.is_init() or self._value > value:
+        if not self.is_init() or self._value < value:
             self._initialized = True
             self._value = value
             self._parent = parent
@@ -111,7 +113,7 @@ def affine_gaps(a: str, b: str, replacement_matrix: Dict[str, Dict[str, int]],
 
     finish_coords = (n, m, 0)
     for k, possible_finish_cell in enumerate(dp[n, m]):
-        if possible_finish_cell.value() < dp[finish_coords].value():
+        if possible_finish_cell.value() > dp[finish_coords].value():
             finish_coords = (n, m, k)
     weight = dp[finish_coords].value()
 
@@ -132,8 +134,10 @@ def affine_gaps(a: str, b: str, replacement_matrix: Dict[str, Dict[str, int]],
 
 
 if __name__ == '__main__':
-    print(needleman_wunsch("AAAAA", "AACCA", {'A': {'A': 0, 'C': 8}}, 5))
-    # Output: ('AAAAA', 'AACCA', 16)
+    raw_matrix = Bio.Align.substitution_matrices.load('BLOSUM62')
+    matrix = defaultdict(dict)
+    for (k1, k2), v in raw_matrix.items():
+        matrix[k1][k2] = v
 
-    print(affine_gaps("AAAAA", "AACCA", {'A': {'A': 0, 'C': 8}}, 5, 2))
-    # Output: ('AAAA__A', '__AACCA', 14)
+    print(needleman_wunsch("AGTA", "ATA", matrix, -4))
+    print(affine_gaps("AGTA", "ATA", matrix, -4, 4))
