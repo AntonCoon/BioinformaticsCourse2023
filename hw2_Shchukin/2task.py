@@ -1,4 +1,4 @@
-  import Bio.Align as Align
+import Bio.Align as Align
 
 matrix = Align.substitution_matrices.load("BLOSUM62")
 
@@ -10,14 +10,14 @@ def aff_gaps(a: str, b: str, substitution_matrix: list, alpha: int, betta: int):
     I = [[0] * (m + 1) for _ in range(n + 1)]  # insertions matrix
 
     for i in range(n + 1):  # fill in the first column
-        F[0][i] = alpha + betta * i
-        D[0][i] = alpha + betta * i
-        I[0][i] = alpha + betta * i
+        F[i][0] = alpha + betta * i
+        D[i][0] = alpha + betta * i
+        I[i][0] = alpha + betta * i
 
     for j in range(m + 1):  # fill in the first line
-        F[j][0] = alpha + betta * j
-        D[j][0] = alpha + betta * j
-        I[j][0] = alpha + betta * j
+        F[0][j] = alpha + betta * j
+        D[0][j] = alpha + betta * j
+        I[0][j] = alpha + betta * j
 
     for i in range(1, n + 1):
         for j in range(1, m + 1):
