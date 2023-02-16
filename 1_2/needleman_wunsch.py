@@ -1,7 +1,7 @@
 import numpy as np
 from collections import deque
 
-def needleman_wunsch(a: str, b: str, S: dict, d: float):
+def needleman_wunsch(a: str, b: str, S: dict, d: float) -> tuple[str, str, float]:
     """Needleman-Wunsch Algorithm
 
     Parameters
@@ -30,9 +30,9 @@ def needleman_wunsch(a: str, b: str, S: dict, d: float):
             else:
                 delete = f[i-1, j] + d
                 insert = f[i, j-1] + d
-                try:
+                if (a[i], b[j]) in S:
                     Sij = S[(a[i], b[j])]
-                except KeyError:
+                else:
                     Sij = S[(b[j], a[i])]
                 f[i, j] = max(delete, insert, f[i-1, j-1] + Sij)
     # восстанавливаем последовательности
@@ -41,9 +41,9 @@ def needleman_wunsch(a: str, b: str, S: dict, d: float):
     i = len(a) - 1
     j = len(b) - 1
     while i > 0 and j > 0:
-        try:
+        if (a[i], b[j]) in S:
             Sij = S[(a[i], b[j])]
-        except KeyError:
+        else:
             Sij = S[(b[j], a[i])]
         if f[i, j] == f[i-1, j-1] + Sij:
             al_a.appendleft(a[i])
