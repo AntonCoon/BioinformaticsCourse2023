@@ -19,12 +19,12 @@ def gotoh_algo(seq1: str, seq2: str, alpha: float, beta: float):
     B = np.zeros((len_seq1 + 1, len_seq2 + 1)) #insert matrix
 
     for k in range(1, len_seq2 + 1):
-        A[0][k] = alpha + beta * k
+        A[0][k] = -np.inf
         B[0][k] = alpha + beta * k
         F[0][k] = alpha + beta * k
     for k in range(1, len_seq1 + 1):
         A[k][0] = alpha + beta * k
-        B[k][0] = alpha + beta * k
+        B[k][0] = -np.inf
         F[k][0] = alpha + beta * k
 
     for i in range(1, len_seq1 + 1):
