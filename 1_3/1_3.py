@@ -54,14 +54,12 @@ def hirshberg(a: str, b: str):
     if len(b[j:]) > 1 and len(a[i:]) > 1:
         hirshberg(a[i:], b[j:])
 
-    # if len(b[:j]) <= 1 and len(a[:i]) <= 1:
-    #     result.append(None)
-    # if len(b[j:]) <= 1 and len(a[i:]) <= 1:
-    #     result.append(None)
+    if len(b[:j]) <= 1 and len(a[:i]) <= 1:
+        result.append(None)
+    if len(b[j:]) <= 1 and len(a[i:]) <= 1:
+        result.append(None)
 
 result = []
-result1 = []
-result2 = []
 
 a = "AGTACGCA"
 b = "TATGC"
@@ -75,7 +73,6 @@ mismatch = -1
 
 hirshberg(a, b)
 print(result)
-print(result.sort(key=lambda e: (e is None, len(e)), reverse=True))
 
 binary_tree = build2(result)
 print(binary_tree)
