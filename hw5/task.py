@@ -4,6 +4,30 @@ from Bio import pairwise2
 from Bio.Align import substitution_matrices
 
 
+'''
+Если вдруг не работает с pairwise2 (разработчики пакета Bio вроде как потерли эту фукцию с последней версии пакета), то вот переделка через другую библиотеку
+
+from NWalign import align
+
+def align_sequences(sequences):
+    matrix = substitution_matrices.load("BLOSUM62")  # выбираем матрицу замен
+    gap_open = -10  # штраф за гэп
+    gap_extend = -0.5  # штраф за продолжение гэпа
+    aligned_sequences = []
+    for i in range(len(sequences)-1):
+        seq1 = sequences[i]
+        seq2 = sequences[i+1]
+        # глобальное выравнивание с матрицей замен и штрафами за гэпы
+        alignments = align(seq1, seq2, matrix, gap_open, gap_extend)
+        # добавляем выровненную последовательность в список
+        aligned_sequences.append(alignments[0])
+        # добавляем выровненную последовательность в список
+        aligned_sequences.append(alignments[1])
+    return aligned_sequences
+'''
+
+
+
 def align_sequences(sequences):
     matrix = substitution_matrices.load("BLOSUM62")  # выбираем матрицу замен
     aligned_sequences = []
