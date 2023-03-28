@@ -56,3 +56,17 @@ def multiple_alignment(strings):
 strings = ["ACGGACGTA", "AGGACGTG", "AGGACGTAG"]
 alignment = multiple_alignment(strings)
 print("Final alignment: ", alignment)
+
+#output
+# Alignment 1: 
+# ACGGACGTA
+# AGGACGTG
+
+# Alignment 0: 
+# AGGACGTAG
+# A-GGACGT--
+
+# Alignment 0: 
+# A-GGACGT----
+
+# Final alignment:  A-GGACGT----
