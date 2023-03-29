@@ -3,7 +3,7 @@ from functools import lru_cache
 from typing import List, Tuple
 
 
-def nw(a: str, b: str, del_pen: float, ins_pen: float, mismatch_pen: float, match: float) -> np.array:
+def nw(a: str, b: str, del_pen: float, ins_pen: float, mismatch_pen: float, match: float) -> np.ndarray:
     a = "-" + a 
     b = "-" + b
     f = np.zeros((2, len(b)))
