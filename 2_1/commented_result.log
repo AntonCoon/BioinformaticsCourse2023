@@ -1,0 +1,41 @@
+Running simulation python script
+1181 of 20000 reads contain errors
+Read results are in input/_1.fastq
+# По условию количество ошибок для каждой позиции должно быть от 0 до 60,
+# Однако я повысил верхний лимит до 68, так как иначе ошибок чтения практически не было
+# При повышенном лимите в 5% ридов небольшое количество ошибок (1-3)
+
+
+Running trimmomatic
+
+Analyze trimming software
+FP=739 - dropped incorrectly
+TP=47 - dropped correctly
+FN=1134 - survived incorrectly
+TN=18080 - survived correctly
+Incorrect sequences before: 1181
+Incorrect sequences after: 1873
+# trimmomatic показал себя плохо, изменение параметров не привело к хорошему результату
+# Это объясняется тем, что ошибки, которые детектирует данный алгоритм, встречаются в реальной жизни.
+# Но на искусственно синтезируемых данных ошибки чтения (просадки качества) имеют другой вид.
+# В нашем случае, ошибки имеют точечный вид (равномерно распределены по строке).
+# А в реальных случаях ошибки внутри рида сконцентрированы блочно в тех местах,
+# где были проблемы с материалом/методом секвенирования
+
+Running error correcting software
+Result is in pollux_output/_1.fastq.trimmed.corrected
+
+Analyze error correcting software
+FP=0 - correct before, incorrect after
+TP=993 - incorrect before, correct after
+FN=3 - incorrect before, incorrect after
+TN=18218 - correct before, correct after
+Incorrect sequences before: 996
+Incorrect sequences after: 3
+# Выбранный алгоритм Pollux исправил практически все ошибки
+# Так как участок читается множество раз, поэтому внутренний алгоритм,
+# основанный на k-мерах (выбран размер 25) хорошо исправляет единичные проблемы с заменой нуклеотидов
+
+# Вывод:
+# на искуственных данных trimmomatic не помогает отсеить плохие чтения,
+# но алгоритмы исправления ошибок справляются хорошо
