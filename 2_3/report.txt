@@ -1,0 +1,84 @@
+K=31
+
+Reads were scanned: 71139
+Graph is building
+Iteration 0 is finished
+Iteration 20000 is finished
+Iteration 40000 is finished
+Iteration 60000 is finished
+Graph was built
+Graph metrics:
+|V| = 4961650;
+|E| = 4891914
+Components count = 69744
+Sources count = 69762
+Sinks count = 71017
+
+Graph is compressing
+Compression: Removed 4819565 edges
+Graph is compressed
+Graph metrics:
+|V| = 142085;
+|E| = 72349
+Components count = 69744
+Sources count = 69762
+Sinks count = 71017
+
+Tips are removing
+Tips: Removed 21305 edges
+Compression: Removed 27 edges
+Tails are removed
+Graph metrics:
+|V| = 100959;
+|E| = 51017
+Components count = 49950
+Sources count = 49968
+Sinks count = 50453
+
+Bubbles are removing
+Bubbles: Removed 0 edges
+Compression: Removed 0 edges
+Bubbles are removed
+Graph metrics:
+|V| = 100959;
+|E| = 51017
+Components count = 49950
+Sources count = 49968
+Sinks count = 50453
+
+Single edges are removing
+Single edges: Removed 49641 edges
+Compression: Removed 9 edges
+Single edges are removed
+Graph metrics:
+|V| = 2732;
+|E| = 1367
+Components count = 1367
+Sources count = 1365
+Sinks count = 1365
+
+Dumping to file
+
+=================
+
+Ссылка на риды E.coli:
+http://ftp.sra.ebi.ac.uk/vol1/run/ERR008/ERR008613/200x100x100-081224_EAS20_0008_FC30TBBAAXX-6.tar.gz
+
+Изначальный граф содержит очень много k-меров
+Оно имеет порядок reads_length * reads_counts
+Статистика содержится в файле begin-stats.png
+
+После сжатия количество вершин/ребер уменьшилось в десятки раз. При чем судя по тому,
+что компонент связности осталось столько же, процесс был корректен и сжались именно бамбуки.
+Удалены ошибки вида 'хвост' и 'пузырь'. Количество ошибок вида пузырь всего 1.
+Граф довольно сильно упростился, статистика в файле middle-stats.png
+
+Напоследок были удалены ребра, на которых обозначенный вес всего 1, то есть покрыты лишь одним ридом.
+Мне показалось это логичным, так как корректные участки должны были считаны несколько раз.
+Итоговый граф состоит преимущественно из пар k-меров, между которыми ребро большой длины.
+Количество вершин/ребер получается порядка тысячи. Статистика в файле final-stats.png
+В коде присутствует закомментированная строка с выводом финального графа.
+Так как количество вершин оказывается несколько тысяч, то graphviz не справляется отрисовать это,
+но если увеличить требуемое качество ридов (сильнее их отфильтровать до несколько сотен вершин в итоговом графе),
+то команда работает корректно.
+
