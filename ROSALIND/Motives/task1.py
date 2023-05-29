@@ -38,7 +38,7 @@ def greedy_motif_search(Dna, k, t):
 
         return most_probable_kmer
 
-    # Функция для вычисления "скора" (оценки качества) набора k-меров
+    # Функция для вычисления "скора" набора k-меров
     def compute_score(motifs):
         consensus = ""
         motif_length = len(motifs[0])
