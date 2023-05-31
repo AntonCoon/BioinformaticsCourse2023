@@ -1,6 +1,8 @@
 from Bio import Phylo
 import matplotlib.pyplot as plt
 
+import random
+
 def fitch(tree):
     nodes = tree.find_clades(order='postorder')
     for node in nodes:
@@ -11,8 +13,9 @@ def fitch(tree):
                 node.name = ''.join(intersection)
             else:
                 union = set.union(*[set(child.name) for child in children])
-                node.name = ''.join(union)
+                node.name = random.choice(list(union))
     return tree
+
 
 tree = Phylo.read('tree.newick', 'newick')
 tree = fitch(tree)
