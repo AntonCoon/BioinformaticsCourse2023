@@ -19,13 +19,19 @@ def neighbor_joining(D, n):
         D[k].append(0.5 * (D[k][min_i] + D[k][min_j] - D[min_i][min_j]))
         D[m][k] = D[k][m]
     D[m][m] = 0
+
+    labels = list(range(n))
     for i in sorted([min_i, min_j], reverse=True):
         del D[i]
-        for row in D:
-            del row[i]
+        del labels[i]
+    for row in D:
+        del row[min_i]
+        del row[min_j]
+
     T = neighbor_joining(D, n - 1)
-    T.append([m, min_i, limb_length_i])
-    T.append([m, min_j, limb_length_j])
+    T.append([labels[min_i], m + n - 2, limb_length_i])
+    T.append([labels[min_j], m + n - 2, limb_length_j])
+
     return T
 
 def neighbor_joining_matrix(D):
@@ -41,14 +47,14 @@ def neighbor_joining_matrix(D):
 def total_distance(D, i):
     return sum(D[i])
 
-D = [
- [0, 23, 27, 20],
- [23, 0, 30, 28],
- [27, 30, 0, 30],
- [20, 28, 30, 0]
-]
-n = len(D)
+n = int(input())
+D = []
+for _ in range(n):
+    row = list(map(int, input().split()))
+    D.append(row)
+
 T = neighbor_joining(D,n)
-#print(T)
+T.sort(key=lambda x: (x[0], x[1]))
 for row in T:
-    print(f'{row[0]}->{row[1]}:{row[2]:}')
+    print(f'{row[0]}->{row[1]}:{row[2]:.3f}')
+
